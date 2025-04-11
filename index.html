@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AlymJr - Miniatures YouTube/Affiches</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3a8dde;
+      --secondary-color: #0a2342;
+      --accent-color: #61a5f3;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--secondary-color);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #00182b;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 32px;
+      color: var(--primary-color);
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      position: relative;
+      padding: 120px 20px;
+      text-align: center;
+      background: var(--secondary-color);
+      overflow: hidden;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(10,35,66,0.85), rgba(14,46,85,0.9));
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .hero span {
+      color: var(--primary-color);
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 40px;
+      color: #ccddee;
+      font-size: 18px;
+    }
+
+    .buttons button {
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border: 2px solid var(--accent-color);
+      background: transparent;
+      color: var(--accent-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .buttons button:hover {
+      background-color: var(--accent-color);
+      color: #000;
+      box-shadow: 0 0 12px var(--accent-color), 0 0 24px var(--accent-color);
+      transform: scale(1.05);
+    }
+
+    .background-carousel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 0;
+    }
+
+    .carousel-line {
+      display: flex;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 12px;
+    }
+
+    .carousel-track img {
+      width: 240px;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .carousel-track img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+
+    .scroll-left .carousel-track {
+      animation: scrollLeft 30s linear infinite;
+    }
+
+    .scroll-right .carousel-track {
+      animation: scrollRight 30s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+.gallery {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 2;
+  position: relative;
+  background: linear-gradient(145deg, #061729, #0f2d4e);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  margin-bottom: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gallery h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 32px;
+  text-shadow: 0 0 8px var(--primary-color);
+}
+
+.gallery p {
+  text-align: center;
+  color: #ccddee;
+  margin-bottom: 50px;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.grid-wrapper {
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.grid img {
+  width: 100%;
+  border-radius: 14px;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid transparent;
+}
+
+.grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--primary-color), 0 0 40px rgba(58, 141, 222, 0.5);
+  border: 2px solid var(--accent-color);
+}
+
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--primary-color);
+      color: #000;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    #backToTop:hover {
+      background-color: var(--accent-color);
+    }
+  </style>
+  <script>
+    const imagesCarousel = [
+      "https://i.imgur.com/119g9YL.jpeg",
+      "https://i.imgur.com/SUU9T3i.png",
+      "https://i.imgur.com/SlPHPIU.png",
+      "https://i.imgur.com/VEEOan5.png",
+      "https://i.imgur.com/tY3LzGE.jpeg",
+      "https://i.imgur.com/BRjjMBD.jpeg",
+      "https://i.imgur.com/VvsTs5m.jpeg",
+      "https://i.imgur.com/bCAAAWM.png",
+      "https://i.imgur.com/GAq9uPd.jpeg",
+      "https://i.imgur.com/RyW1zt9.jpeg",
+      "https://i.imgur.com/inenxOt.png",
+      "https://i.imgur.com/krcDOBd.png",
+      "https://i.imgur.com/EZQduv4.jpeg",
+      "https://i.imgur.com/1hks5NY.jpeg",
+      "https://i.imgur.com/wwiwKAh.png",
+      "https://i.imgur.com/D5da0wH.jpeg"
+    ];
+
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function generateCarouselLines(nbLines = 6) {
+      const container = document.querySelector('.background-carousel');
+      if (!container) return;
+
+      for (let i = 0; i < nbLines; i++) {
+        const shuffled = shuffleArray(imagesCarousel);
+        const direction = Math.random() < 0.5 ? 'scroll-left' : 'scroll-right';
+
+        const line = document.createElement('div');
+        line.className = `carousel-line ${direction}`;
+
+        const track = document.createElement('div');
+        track.className = 'carousel-track';
+
+        shuffled.forEach(src => {
+          const img = document.createElement('img');
+          img.src = src;
+          track.appendChild(img);
+        });
+
+        line.appendChild(track);
+        container.appendChild(line);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      generateCarouselLines(6);
+    });
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>AlymJr Portfolio</h1>
+</header>
+
+<section class="hero">
+  <div class="background-carousel"></div>
+
+  <div class="hero-content">
+    <h1>Miniatures, affiches <span>percutantes</span></h1>
+    <p>Bienvenue sur mon portfolio. Moi, AlymJr réalise des visuels pour tes youtubeurs/streameurs préférés.</p>
+    <div class="buttons">
+      <button class="learn">Voir mes créations</button>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <h2>Mes Miniatures</h2>
+  <p>Voici les miniatures que j'ai pu réaliser que ce soit en entrainement ou pour des clients:</p>
+  <div class="grid-wrapper">
+    <div class="grid">
+      <img src="https://i.imgur.com/119g9YL.jpeg" />
+      <img src="https://i.imgur.com/SUU9T3i.png" />
+      <img src="https://i.imgur.com/SlPHPIU.png" />
+      <img src="https://i.imgur.com/VEEOan5.png" />
+      <img src="https://i.imgur.com/tY3LzGE.jpeg" />
+      <img src="https://i.imgur.com/BRjjMBD.jpeg" />
+      <img src="https://i.imgur.com/VvsTs5m.jpeg" />
+      <img src="https://i.imgur.com/bCAAAWM.png" />
+      <img src="https://i.imgur.com/GAq9uPd.jpeg" />
+      <img src="https://i.imgur.com/RyW1zt9.jpeg" />
+      <img src="https://i.imgur.com/inenxOt.png" />
+      <img src="https://i.imgur.com/krcDOBd.png" />
+      <img src="https://i.imgur.com/EZQduv4.jpeg" />
+      <img src="https://i.imgur.com/1hks5NY.jpeg" />
+      <img src="https://i.imgur.com/wwiwKAh.png" />
+      <img src="https://i.imgur.com/D5da0wH.jpeg" />
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="affiches">
+  <h2>Mes Affiches</h2>
+  <p>Voici mes affiches réalisées :</p>
+  <div class="grid-wrapper">
+    <div class="grid">
+      <img src="https://i.imgur.com/i2Hsfe5.png" />
+      <img src="https://i.imgur.com/l3ngypK.png" />
+      <img src="https://i.imgur.com/r6Hzujt.png" />
+      <img src="https://i.imgur.com/fucbF6f.jpeg" />
+      <img src="https://i.imgur.com/38s3zPS.png" />
+      <img src="https://i.imgur.com/hjOHkcP.png" />
+      <img src="https://i.imgur.com/HyT4YeO.png" />
+    </div>
+  </div>
+</section>
+
+<button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+<script>
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
+  });
+</script>
+
+</body>
+</html>
