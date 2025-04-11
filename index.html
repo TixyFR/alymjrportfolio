@@ -156,60 +156,59 @@
       100% { transform: translateX(0); }
     }
 
-.gallery {
-  padding: 80px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  z-index: 2;
-  position: relative;
-  background: linear-gradient(145deg, #061729, #0f2d4e);
-  border-radius: 20px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
-  margin-bottom: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
+    .gallery {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      z-index: 2;
+      position: relative;
+      background: linear-gradient(145deg, #061729, #0f2d4e);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-.gallery h2 {
-  text-align: center;
-  margin-bottom: 12px;
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 32px;
-  text-shadow: 0 0 8px var(--primary-color);
-}
+    .gallery h2 {
+      text-align: center;
+      margin-bottom: 12px;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 32px;
+      text-shadow: 0 0 8px var(--primary-color);
+    }
 
-.gallery p {
-  text-align: center;
-  color: #ccddee;
-  margin-bottom: 50px;
-  font-size: 16px;
-  opacity: 0.9;
-}
+    .gallery p {
+      text-align: center;
+      color: #ccddee;
+      margin-bottom: 50px;
+      font-size: 16px;
+      opacity: 0.9;
+    }
 
-.grid-wrapper {
-  overflow: hidden;
-}
+    .grid-wrapper {
+      overflow: hidden;
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  padding: 0 20px;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      padding: 0 20px;
+    }
 
-.grid img {
-  width: 100%;
-  border-radius: 14px;
-  transition: 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  border: 2px solid transparent;
-}
+    .grid img {
+      width: 100%;
+      border-radius: 14px;
+      transition: 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      border: 2px solid transparent;
+    }
 
-.grid img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px var(--primary-color), 0 0 40px rgba(58, 141, 222, 0.5);
-  border: 2px solid var(--accent-color);
-}
+    .grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--primary-color), 0 0 40px rgba(58, 141, 222, 0.5);
+      border: 2px solid var(--accent-color);
+    }
 
     #backToTop {
       position: fixed;
@@ -298,19 +297,18 @@
 
 <section class="hero">
   <div class="background-carousel"></div>
-
   <div class="hero-content">
     <h1>Miniatures, affiches <span>percutantes</span></h1>
     <p>Bienvenue sur mon portfolio. Moi, AlymJr réalise des visuels pour tes youtubeurs/streameurs préférés.</p>
     <div class="buttons">
-      <button class="learn">Voir mes créations</button>
+      <button class="learn" onclick="scrollToSection()">Voir mes créations</button>
     </div>
   </div>
 </section>
 
-<section class="gallery">
+<section class="gallery" id="miniatures">
   <h2>Mes Miniatures</h2>
-  <p>Voici les miniatures que j'ai pu réaliser que ce soit en entrainement ou pour des clients:</p>
+  <p>Voici les miniatures que j'ai pu réaliser que ce soit en entrainement ou pour des clients :</p>
   <div class="grid-wrapper">
     <div class="grid">
       <img src="https://i.imgur.com/119g9YL.jpeg" />
@@ -356,6 +354,13 @@
   window.addEventListener('scroll', () => {
     backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
   });
+
+  function scrollToSection() {
+    const target = document.getElementById('miniatures');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 </script>
 
 </body>
