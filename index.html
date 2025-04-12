@@ -138,14 +138,6 @@
       filter: brightness(1.2);
     }
 
-    .scroll-left .carousel-track {
-      animation: scrollLeft 30s linear infinite;
-    }
-
-    .scroll-right .carousel-track {
-      animation: scrollRight 30s linear infinite;
-    }
-
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -154,6 +146,18 @@
     @keyframes scrollRight {
       0% { transform: translateX(-50%); }
       100% { transform: translateX(0); }
+    }
+
+    .scroll-left .carousel-track {
+      animation-name: scrollLeft;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .scroll-right .carousel-track {
+      animation-name: scrollRight;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
 
     .gallery {
@@ -202,6 +206,7 @@
       transition: 0.3s ease;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
       border: 2px solid transparent;
+      cursor: zoom-in;
     }
 
     .grid img:hover {
@@ -229,65 +234,43 @@
     #backToTop:hover {
       background-color: var(--accent-color);
     }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 14px;
+    }
   </style>
-  <script>
-    const imagesCarousel = [
-      "https://i.imgur.com/119g9YL.jpeg",
-      "https://i.imgur.com/SUU9T3i.png",
-      "https://i.imgur.com/SlPHPIU.png",
-      "https://i.imgur.com/VEEOan5.png",
-      "https://i.imgur.com/tY3LzGE.jpeg",
-      "https://i.imgur.com/BRjjMBD.jpeg",
-      "https://i.imgur.com/VvsTs5m.jpeg",
-      "https://i.imgur.com/bCAAAWM.png",
-      "https://i.imgur.com/GAq9uPd.jpeg",
-      "https://i.imgur.com/RyW1zt9.jpeg",
-      "https://i.imgur.com/inenxOt.png",
-      "https://i.imgur.com/krcDOBd.png",
-      "https://i.imgur.com/EZQduv4.jpeg",
-      "https://i.imgur.com/1hks5NY.jpeg",
-      "https://i.imgur.com/wwiwKAh.png",
-      "https://i.imgur.com/D5da0wH.jpeg"
-    ];
-
-    function shuffleArray(array) {
-      const copy = [...array];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
-
-    function generateCarouselLines(nbLines = 6) {
-      const container = document.querySelector('.background-carousel');
-      if (!container) return;
-
-      for (let i = 0; i < nbLines; i++) {
-        const shuffled = shuffleArray(imagesCarousel);
-        const direction = Math.random() < 0.5 ? 'scroll-left' : 'scroll-right';
-
-        const line = document.createElement('div');
-        line.className = `carousel-line ${direction}`;
-
-        const track = document.createElement('div');
-        track.className = 'carousel-track';
-
-        shuffled.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src;
-          track.appendChild(img);
-        });
-
-        line.appendChild(track);
-        container.appendChild(line);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      generateCarouselLines(6);
-    });
-  </script>
 </head>
 <body>
 
@@ -306,61 +289,137 @@
   </div>
 </section>
 
-<section class="gallery" id="miniatures">
+<section class="gallery fade-in" id="miniatures">
   <h2>Mes Miniatures</h2>
   <p>Voici les miniatures que j'ai pu réaliser que ce soit en entrainement ou pour des clients :</p>
   <div class="grid-wrapper">
     <div class="grid">
-      <img src="https://i.imgur.com/119g9YL.jpeg" />
-      <img src="https://i.imgur.com/SUU9T3i.png" />
-      <img src="https://i.imgur.com/SlPHPIU.png" />
-      <img src="https://i.imgur.com/VEEOan5.png" />
-      <img src="https://i.imgur.com/tY3LzGE.jpeg" />
-      <img src="https://i.imgur.com/BRjjMBD.jpeg" />
-      <img src="https://i.imgur.com/VvsTs5m.jpeg" />
-      <img src="https://i.imgur.com/bCAAAWM.png" />
-      <img src="https://i.imgur.com/GAq9uPd.jpeg" />
-      <img src="https://i.imgur.com/RyW1zt9.jpeg" />
-      <img src="https://i.imgur.com/inenxOt.png" />
-      <img src="https://i.imgur.com/krcDOBd.png" />
-      <img src="https://i.imgur.com/EZQduv4.jpeg" />
-      <img src="https://i.imgur.com/1hks5NY.jpeg" />
-      <img src="https://i.imgur.com/wwiwKAh.png" />
-      <img src="https://i.imgur.com/D5da0wH.jpeg" />
+      <img src="https://i.imgur.com/119g9YL.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/SUU9T3i.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/SlPHPIU.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/VEEOan5.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/tY3LzGE.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/BRjjMBD.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/VvsTs5m.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/bCAAAWM.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/GAq9uPd.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/RyW1zt9.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/inenxOt.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/krcDOBd.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/EZQduv4.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/1hks5NY.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/wwiwKAh.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/D5da0wH.jpeg" class="lightbox-img fade-in" />
     </div>
   </div>
 </section>
 
-<section class="gallery" id="affiches">
+<section class="gallery fade-in" id="affiches">
   <h2>Mes Affiches</h2>
   <p>Voici mes affiches réalisées :</p>
   <div class="grid-wrapper">
     <div class="grid">
-      <img src="https://i.imgur.com/i2Hsfe5.png" />
-      <img src="https://i.imgur.com/l3ngypK.png" />
-      <img src="https://i.imgur.com/r6Hzujt.png" />
-      <img src="https://i.imgur.com/fucbF6f.jpeg" />
-      <img src="https://i.imgur.com/38s3zPS.png" />
-      <img src="https://i.imgur.com/hjOHkcP.png" />
-      <img src="https://i.imgur.com/HyT4YeO.png" />
+      <img src="https://i.imgur.com/i2Hsfe5.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/l3ngypK.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/r6Hzujt.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/fucbF6f.jpeg" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/38s3zPS.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/hjOHkcP.png" class="lightbox-img fade-in" />
+      <img src="https://i.imgur.com/HyT4YeO.png" class="lightbox-img fade-in" />
     </div>
   </div>
 </section>
 
 <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+<div class="lightbox"><img src="" alt="zoomed"/></div>
 
 <script>
+  const imagesCarousel = [
+    "https://i.imgur.com/119g9YL.jpeg",
+    "https://i.imgur.com/SUU9T3i.png",
+    "https://i.imgur.com/SlPHPIU.png",
+    "https://i.imgur.com/VEEOan5.png",
+    "https://i.imgur.com/tY3LzGE.jpeg",
+    "https://i.imgur.com/BRjjMBD.jpeg",
+    "https://i.imgur.com/VvsTs5m.jpeg",
+    "https://i.imgur.com/bCAAAWM.png",
+    "https://i.imgur.com/GAq9uPd.jpeg",
+    "https://i.imgur.com/RyW1zt9.jpeg",
+    "https://i.imgur.com/inenxOt.png",
+    "https://i.imgur.com/krcDOBd.png",
+    "https://i.imgur.com/EZQduv4.jpeg",
+    "https://i.imgur.com/1hks5NY.jpeg",
+    "https://i.imgur.com/wwiwKAh.png",
+    "https://i.imgur.com/D5da0wH.jpeg"
+  ];
+
+  function shuffleArray(array) {
+    const copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function generateCarouselLines(nbLines = 6) {
+    const container = document.querySelector('.background-carousel');
+    if (!container) return;
+
+    for (let i = 0; i < nbLines; i++) {
+      const shuffled = shuffleArray(imagesCarousel);
+      const direction = Math.random() < 0.5 ? 'scroll-left' : 'scroll-right';
+      const speed = Math.floor(Math.random() * 20) + 20;
+
+      const line = document.createElement('div');
+      line.className = `carousel-line ${direction}`;
+
+      const track = document.createElement('div');
+      track.className = 'carousel-track';
+      track.style.animationDuration = `${speed}s`;
+
+      shuffled.concat(shuffled).forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        track.appendChild(img);
+      });
+
+      line.appendChild(track);
+      container.appendChild(line);
+    }
+  }
+
+  function scrollToSection() {
+    const target = document.getElementById('miniatures');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  }
+
   const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
     backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
   });
 
-  function scrollToSection() {
-    const target = document.getElementById('miniatures');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+  document.addEventListener('DOMContentLoaded', () => {
+    generateCarouselLines(6);
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  });
+
+  document.addEventListener('click', (e) => {
+    const lightbox = document.querySelector('.lightbox');
+    if (e.target.classList.contains('lightbox-img')) {
+      lightbox.classList.add('active');
+      lightbox.querySelector('img').src = e.target.src;
+    } else if (e.target.classList.contains('lightbox')) {
+      lightbox.classList.remove('active');
     }
-  }
+  });
 </script>
 
 </body>
